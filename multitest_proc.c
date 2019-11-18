@@ -9,10 +9,12 @@ int start(int target, int* list, int size, int procNum) {
     int *pidList = (int *) malloc(sizeof(int) * procNum);
     for(i = 0; i < procNum; i++) {
         pid = fork();
-        if(pid == 0) { // if we're at the parent
-            printf("im gonna search :D\n");
+        int start;
+        int end;
+        if(pid == 0) { // if we're a child
+            search(target, list, start, end);
             exit(0);
-        } else {
+        } else { // if we're at the parent
             pidList[i] = pid;
         }
         printf("i = %d\n", i);
@@ -22,4 +24,13 @@ int start(int target, int* list, int size, int procNum) {
         waitpid(pidList[i]);
     }
 
+}
+
+int search(int target, int* list, int start, int end) {
+    int i;
+    for(i = start; i <= end; i++) {
+        if(list[i] == target) {
+            return i;
+        }
+    }
 }
