@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 // implements both process and thread techniques
 int main() {
     srand(time(NULL));
@@ -11,7 +12,7 @@ int main() {
     printList(list, size);
     shuffleList(list, size);
     printList(list, size);
-    test(3, list, size);
+    test(3, list, size, 4);
     free(list);
     return 0;
 }
