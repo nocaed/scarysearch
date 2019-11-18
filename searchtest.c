@@ -11,6 +11,7 @@ int main() {
     printList(list, size);
     shuffleList(list, size);
     printList(list, size);
+    test(3, list, size);
     free(list);
     return 0;
 }

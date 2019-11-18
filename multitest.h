@@ -1,8 +1,8 @@
 // header file with a macro to replace dummy search function in searchtest.c
-#define test(x) search(x) 
+#define test(x, y, z) search(x, y, z) 
 
 
-int search(int target);
+int search(int, int*, int);
 
 int* generateList(int size);
 
