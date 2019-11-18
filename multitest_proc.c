@@ -1,10 +1,9 @@
 // this file is for multiprocessing
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
+#include <math.h>   
 int start(int target, int* list, int size, int procNum) {
     int i;
-    int procExp = (int) log2(procNum);
     int pid;
     int *pidList = (int *) malloc(sizeof(int) * procNum);
     for(i = 0; i < procNum; i++) {
