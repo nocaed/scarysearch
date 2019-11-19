@@ -7,10 +7,11 @@
 int main() {
     srand(time(NULL));
     int* list;
-    int size = 2501;
+    int size = 249;
     list = generateList(size);
     shuffleList(list, size);
-    int indx = test(3, list, size, 249);
+    int indx = test(3, list, size, 1);
+    indx = test(3, list, size, 4);
 //    printList(list, size);
     swapTarget(list, size, indx);
 //    printList(list, size);

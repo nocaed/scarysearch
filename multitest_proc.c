@@ -42,25 +42,28 @@ int startSearch(int target, int* list, int size, int subArraySize) {
         int start = startIndices[i];
         int end = endIndices[i];
         if(pid == 0) { // if we're a child
-            int indx = search(target, list, start, end); 
+            int indx = search(target, list, start, end); // only children search
             exit(indx);
         } else { // if we're at the parent
-            pidList[i] = pid;
+            pidList[i] = pid; // keep track of the pids of all the children!
         }
     }
     int status;
     int targetIndx = -1;
+    // This is where the parent waits on the children
     for(i = 0; i < procNum; i++) {
  //       printf("pid: %d ", pidList[i]);
         waitpid(pidList[i], &status, 0);
-        if(WEXITSTATUS(status) <= 250 && WEXITSTATUS(status) > -1) {
-            targetIndx = WEXITSTATUS(status);
+        if(WEXITSTATUS(status) <= 250) {
+            targetIndx = WEXITSTATUS(status); // target has been found
         }
 //        printf("status: %d\n", WEXITSTATUS(status));
     }
     return targetIndx;
 }
-
+/**
+ * This is just a sequential search that returns the index of the target
+ */
 int search(int target, int* list, int start, int end) {
     int i;
     for(i = start; i <= end; i++) {
