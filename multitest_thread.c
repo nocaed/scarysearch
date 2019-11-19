@@ -3,41 +3,85 @@
 #include <unistd.h>
 #include <pthread.h>
 
-typedef struct _SearchParams
-{
+typedef struct _SearchParams {
     int target;
     int* list;
     int start;
     int end;
 } SearchParams;
 
+void genParams(SearchParams*, int, int);
+
 // this file is for multithread
 int startSearch(int target, int* list, int size, int subArraySize) {
-    pthread_t tid;
-    int i;
-    // TODO: ADD START TO PARAMS
-    // TODO: ADD END TO PARAMS
+    pthread_t tid; // current thread
+    pthread_t* threadArr; // array of all threads
+    int i; // for loop control
+    int threadNum; // total number of threads to be generated
+    int* startIndices; // all start indices in list for threads
+    int* endIndices; // all end indices in list for threads
+    SearchParams params;
+
     // error messages
-    if(subArraySize > size)
-    {
+    if(subArraySize > size) {
+        // if subarray size is larger than the size of the list
         printf("Error, subarray size cannot be larger than total size.");
         return -1;
     }
-    if(subArraySize > 250)
-    {
+    if(subArraySize > 250) {
+        // if the subarray size is greater than the maximum subarray size
         printf("Error, subarray size cannot be larger than 250.");
         return -1;
     }
 
+    // calculate the total number of threads
+    threadNum = size / subArraySize;
+    if(size % subArraySize != 0) {
+        threadNum++;
+    }
 
-    SearchParams* params = (SearchParams*)malloc(sizeof(SearchParams));
-    params -> target = target;
-    params -> list = list;
+    // Allocate memory for arrays
+    threadArr = (pthread_t*)calloc(threadNum, sizeof(pthread_t));
+    startIndices = (int*)calloc(threadNum, sizeof(int));
+    endIndices = (int*)calloc(threadNum, sizeof(int));
+
+    // set all indices for searching
+    for(i = 0; i < threadNum; i++) {
+        startIndices[i] = i * subArraySize;
+        endIndices[i] = i * subArraySize - 1;
+        printf("threadNum:%d\n", threadNum);
+        if(i == threadNum - 1) {
+            endIndices[i] = size - 1;
+        }
+    }
+
+    // create threads
+    params.target = target;
+    params.list = list;
+    for(i = 0; i < threadNum; i++) {
+        genParams(&params, startIndices[i], endIndices[i]);
+        pthread_create(&tid, NULL, search, (void*)&params);
+        threadArr[i] = tid;
+    }
+
+    // TODO: More thread wizardry and closing everything up
+
+    /*
+     * FREE params
+     * FREE threadArr
+     * FREE startIndices
+     * FREE endIndices 
+    */
+}
+
+// sets start and end indices for the search parameters
+void genParams(SearchParams* params, int start, int end) {
+    params -> start = start;
+    params -> end = end;
 }
 
 // Searches list of numbers for a target value
-void* search(void* params)
-{
+void* search(void* params) {
     SearchParams* seqSearchParams = (SearchParams*)params;
     int i;
     int* indexPtr = (int*)malloc(sizeof(int));
