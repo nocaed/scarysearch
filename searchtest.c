@@ -7,13 +7,13 @@
 int main() {
     srand(time(NULL));
     int* list;
-    int size = 25;
+    int size = 2501;
     list = generateList(size);
     shuffleList(list, size);
-    int indx = test(3, list, 25, 4);
-    printList(list, size);
+    int indx = test(3, list, size, 249);
+//    printList(list, size);
     swapTarget(list, size, indx);
-    printList(list, size);
+//    printList(list, size);
     free(list);
     return 0;
 }
@@ -59,4 +59,10 @@ void swapTarget(int *list, int size, int indx) {
     temp = list[indx];
     list[indx] = list[random];
     list[random] = temp;
+}
+
+int runTest(int target, int *list, int size, int subArraySize) {
+    int index = test(target, list, size, subArraySize);
+    swapTarget(list, size, index);
+    
 }

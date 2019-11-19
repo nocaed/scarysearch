@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>   
-int start(int target, int* list, int size, int subArraySize) {
+int startSearch(int target, int* list, int size, int subArraySize) {
     // Error messages
     if(subArraySize > size) {
         printf("Error, subarray size cannot be bigger than total size");
@@ -15,7 +15,7 @@ int start(int target, int* list, int size, int subArraySize) {
     // In this part we set the number of processes we will use
     int procNum;
     if(size % subArraySize == 0) {
-        int procNum = size / subArraySize; // if the array is divisble by the subarray size we can just divide
+        procNum = size / subArraySize; // if the array is divisble by the subarray size we can just divide
     } else { // but if it's not divisible we have to use one additional process!
         procNum = size / subArraySize;
         procNum++;
@@ -24,12 +24,13 @@ int start(int target, int* list, int size, int subArraySize) {
     int i; // so that i dont have to keep declaring i :D
 
     int *pidList = (int *) malloc(sizeof(int) * procNum); // holds the pid's of all the processes we spawn
-    int *startIndices = (int *) malloc(sizeof(int) * (size / subArraySize)); // holds the start indices for each process to start searching the array at
+    int *startIndices = (int *) malloc(sizeof(int) * procNum); // holds the start indices for each process to start searching the array at
     int* endIndices = (int *) malloc(sizeof(int) * procNum); // does the above but with end indices 
     // This loop sets the start and end indices using math :D
     for(i = 0; i < procNum; i++) {
         startIndices[i] = i * subArraySize;
         endIndices[i] = i * subArraySize + subArraySize - 1;
+        printf("procNum: %d", procNum);
         if(i == procNum - 1) { // if we're at the last process
             endIndices[i] = size - 1; // the end index is just the last index of the array
         }
@@ -50,12 +51,12 @@ int start(int target, int* list, int size, int subArraySize) {
     int status;
     int targetIndx = -1;
     for(i = 0; i < procNum; i++) {
-        printf("pid: %d ", pidList[i]);
+ //       printf("pid: %d ", pidList[i]);
         waitpid(pidList[i], &status, 0);
         if(WEXITSTATUS(status) <= 250 && WEXITSTATUS(status) > -1) {
             targetIndx = WEXITSTATUS(status);
         }
-        printf("status: %d\n", WEXITSTATUS(status));
+//        printf("status: %d\n", WEXITSTATUS(status));
     }
     return targetIndx;
 }
