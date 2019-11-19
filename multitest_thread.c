@@ -40,20 +40,18 @@ void* search(void* params)
 {
     SearchParams* seqSearchParams = (SearchParams*)params;
     int i;
-    void* indexPtr;
-    int* errorNum = (int*)malloc(sizeof(int));
-    errorNum[0] = -1;
+    int* indexPtr = (int*)malloc(sizeof(int));
 
     for(i = seqSearchParams -> start; i <= seqSearchParams -> end; i++)
     {
         if(seqSearchParams -> list[i] == seqSearchParams -> target)
         {
             printf("found\n");
-            indexPtr = seqSearchParams -> list[i];
-            return indexPtr;
+            indexPtr[0] = i;
+            return (void*)indexPtr;
         }
     }
 
-    indexPtr = (void*)errorNum;
-    return indexPtr;
+    indexPtr[0] = -1;
+    return (void*)indexPtr;
 }
