@@ -11,3 +11,5 @@ void printList(int* list, int size);
 void shuffleList(int* list, int size);
 
 void swapTarget(int*, int, int);
+
+void setIndices(int *startIndices, int* endIndices, int procNum, int subArraySize, int size);
