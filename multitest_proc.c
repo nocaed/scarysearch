@@ -48,13 +48,16 @@ int start(int target, int* list, int size, int subArraySize) {
         }
     }
     int status;
-    
+    int targetIndx = -1;
     for(i = 0; i < procNum; i++) {
         printf("pid: %d ", pidList[i]);
         waitpid(pidList[i], &status, 0);
+        if(WEXITSTATUS(status) <= 250 && WEXITSTATUS(status) > -1) {
+            targetIndx = WEXITSTATUS(status);
+        }
         printf("status: %d\n", WEXITSTATUS(status));
     }
-
+    return targetIndx;
 }
 
 int search(int target, int* list, int start, int end) {

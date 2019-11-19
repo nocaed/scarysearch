@@ -9,3 +9,5 @@ int* generateList(int size);
 void printList(int* list, int size);
 
 void shuffleList(int* list, int size);
+
+void swapTarget(int*, int, int);

@@ -9,10 +9,11 @@ int main() {
     int* list;
     int size = 25;
     list = generateList(size);
-    printList(list, size);
     shuffleList(list, size);
+    int indx = test(3, list, 25, 4);
     printList(list, size);
-    test(3, list, size, 4);
+    swapTarget(list, size, indx);
+    printList(list, size);
     free(list);
     return 0;
 }
@@ -48,4 +49,14 @@ void printList(int* list, int size) {
         printf("%d, ", list[i]);
     }
     printf("\n");
+}
+
+void swapTarget(int *list, int size, int indx) {
+    int lower = 0;
+    int upper = size - 1;
+    int temp;
+    int random = rand() % (upper - lower + 1);
+    temp = list[indx];
+    list[indx] = list[random];
+    list[random] = temp;
 }
