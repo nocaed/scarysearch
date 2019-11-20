@@ -7,11 +7,16 @@
 int main() {
     srand(time(NULL));
     int* list;
-    int size = 1000;
+    int size = 1;
     list = generateList(size);
-    shuffleList(list, size);
-    int indx = test(3, list, size, 20);
-    indx = test(3, list, size, 8);
+    
+    int i;
+    for(i = 0; i < size; i++) {
+        if(list[i] == 1) {
+            printf("the target is at %d!\n", i);
+        }
+    }
+    int indx = test(1, list, size, 1);
 //    printList(list, size);
     swapTarget(list, size, indx);
 //    printList(list, size);
