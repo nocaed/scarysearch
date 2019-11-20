@@ -121,7 +121,7 @@ void setIndices(int *startIndices, int* endIndices, int procNum, int subArraySiz
     for(i = 0; i < procNum; i++) {
         startIndices[i] = i * subArraySize;
         endIndices[i] = i * subArraySize + subArraySize - 1;
-        if(i == procNum - 1) { // if we're at the last process
+        if(i == procNum - 1) { // if we're at the last thread
             endIndices[i] = size - 1; // the end index is just the last index of the array
         }
     }
