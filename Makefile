@@ -11,6 +11,6 @@ proc: multitest_proc.o searchtest.c
 	gcc -Wall -o searchtest searchtest.c multitest_proc.o
 
 thread: multitest_thread.o searchtest.c
-	gcc -pthread -o searchtest searchtest.c multitest_thread.o
+	gcc -pthread -ggdb -g -fsanitize=address -o searchtest searchtest.c multitest_thread.o
 clean:
 	rm -f *.o

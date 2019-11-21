@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>   
+
+void setIndices(int*, int*, int, int, int);
+
 int startSearch(int target, int* list, int size, int subArraySize, int timesRan) {
     if(timesRan == 0) {
         printf("-process\n");

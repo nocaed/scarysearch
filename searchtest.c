@@ -24,7 +24,7 @@ int main() {
     double avg = 0.0;
     // Testing
     for(i = 0; i < 100; i++) {
-        timeArr[0][i] = firstTest(i);
+ //       timeArr[0][i] = firstTest(i);
         timeArr[1][i] = secondTest(i);
         timeArr[2][i] = thirdTest(i);
     }
@@ -133,7 +133,7 @@ double secondTest(int i) {
 
     gettimeofday(&start, NULL);
     subArraySize = 4;
-    size = 37500;
+    size = 2000;
     target = genRandomIntByRange(1, size);
     list = generateList(size);
     shuffleList(list, size);
@@ -164,7 +164,7 @@ double thirdTest(int i) {
     int* list;
 
     gettimeofday(&start, NULL);
-    size = 37500;
+    size = 2000;
     target = 5;
     subArraySize = genRandomIntByRange(1, 4);
     list = generateList(size);
