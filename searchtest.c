@@ -15,16 +15,22 @@ int main() {
     // Set up
     srand(time(0));
     const int NUM_TESTS = 3;
+    const int ITERATIONS = 5;
     double** timeArr = (double**)calloc(NUM_TESTS, sizeof(double*));
     int i;
     int j;
     for(i = 0; i < NUM_TESTS; i++) {
-        timeArr[i] = (double*)calloc(100, sizeof(double));
+        timeArr[i] = (double*)calloc(ITERATIONS, sizeof(double));
     }
     double avg = 0.0;
     // Testing
+<<<<<<< HEAD
     for(i = 0; i < 100; i++) {
  //       timeArr[0][i] = firstTest(i);
+=======
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[0][i] = firstTest(i);
+>>>>>>> b8c0fc30f0b7e94fdb585846a4eeae8c813282e9
         timeArr[1][i] = secondTest(i);
         timeArr[2][i] = thirdTest(i);
     }
@@ -101,7 +107,7 @@ double firstTest(int i) {
     gettimeofday(&start, NULL);
     target = 5;
     subArraySize = 4;
-    size = genRandomIntByRange(1, 250 * 150);
+    size = genRandomIntByRange(1, 20000);
     list = generateList(size);
     shuffleList(list, size);
     if(i == 0) {
@@ -133,7 +139,11 @@ double secondTest(int i) {
 
     gettimeofday(&start, NULL);
     subArraySize = 4;
+<<<<<<< HEAD
     size = 2000;
+=======
+    size = 20000;
+>>>>>>> b8c0fc30f0b7e94fdb585846a4eeae8c813282e9
     target = genRandomIntByRange(1, size);
     list = generateList(size);
     shuffleList(list, size);
@@ -164,7 +174,11 @@ double thirdTest(int i) {
     int* list;
 
     gettimeofday(&start, NULL);
+<<<<<<< HEAD
     size = 2000;
+=======
+    size = 20000;
+>>>>>>> b8c0fc30f0b7e94fdb585846a4eeae8c813282e9
     target = 5;
     subArraySize = genRandomIntByRange(1, 4);
     list = generateList(size);
