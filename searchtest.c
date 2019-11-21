@@ -25,7 +25,7 @@ int main() {
     // Testing
     for(i = 0; i < 100; i++) {
         timeArr[0][i] = firstTest(i);
-        timeArr[1][i] = secondTest();
+        timeArr[1][i] = secondTest(i);
         timeArr[2][i] = thirdTest();
     }
 
@@ -164,7 +164,7 @@ double thirdTest() {
 
     gettimeofday(&start, NULL);
     gettimeofday(&end, NULL);
-    
+
     return elapsedTimeInMilli(&start, &end);
 }
 
