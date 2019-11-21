@@ -117,6 +117,7 @@ double firstTest(int i) {
     else {
         printf("Target (%d) has been found at index %d.\n", target, index);
     }
+    free(list);
     gettimeofday(&end, NULL);
 
     return elapsedTimeInMilli(&start, &end);
@@ -148,7 +149,7 @@ double secondTest(int i) {
     else {
         printf("Target (%d) has been found at index %d.\n", target, index);
     }
-
+    free(list);
     gettimeofday(&end, NULL);
 
     return elapsedTimeInMilli(&start, &end);
@@ -180,6 +181,7 @@ double thirdTest(int i) {
     else {
         printf("Target (%d) has been found at index %d.\n", target, index);
     }
+    free(list);
     gettimeofday(&end, NULL);
 
     return elapsedTimeInMilli(&start, &end);
