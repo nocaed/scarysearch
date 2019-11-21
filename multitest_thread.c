@@ -78,8 +78,6 @@ int startSearch(int target, int* list, int size, int subArraySize, int timesRan)
         free(status);
     }
     
-
-    printf("Target found at index %d\n", tIndex);
     for(i = 0; i < threadNum; i++) {
         free(paramList[i]);
     }
@@ -107,7 +105,6 @@ void* search(void* params) {
     {
         if(searchList[i] == seqSearchParams -> target)
         {
-            printf("found\n");
             *(indexPtr) = i;
             pthread_exit((void*)indexPtr);
         }
