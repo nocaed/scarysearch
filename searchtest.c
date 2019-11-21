@@ -4,31 +4,46 @@
 #include <sys/time.h>
 #include <time.h>
 #include <math.h>
+
+double firstTest(int); // varies array length
+double secondTest(); // varies target
+double thirdTest(); // varies subarray size
+int genRandomIntByRange(int upper, int lower);
+double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
 // implements both process and thread techniques
 int main() {
     // Set up
     srand(time(0));
-    int* list;
-    int size = 50;
-    int target = 5;
+    const int NUM_TESTS = 3;
+    double** timeArr = (double**)calloc(NUM_TESTS, sizeof(double*));
     int i;
-    list = generateList(size);
-    shuffleList(list, size);
-    double sum_of_times = 0;
+    int j;
+    for(i = 0; i < NUM_TESTS; i++) {
+        timeArr[i] = (double*)calloc(100, sizeof(double));
+    }
+    double avg = 0.0;
     // Testing
     for(i = 0; i < 100; i++) {
-        int indx;
-        
-        if(i == 0) {
-            indx = search(target, list, size, 4, 0);
-        } else {
-            indx = search(target, list, size, 4, 1);
+        timeArr[0][i] = firstTest(i);
+        timeArr[1][i] = secondTest();
+        timeArr[2][i] = thirdTest();
+    }
+
+    // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
+    for(i = 0; i < NUM_TESTS; i++) {
+        for(j = 0; j < 100; j++) {
+            avg += timeArr[i][j];
         }
-        swapTarget(list, size, indx);
+        avg /= 100;
+        printf("The average runtime for test case %d was %f ms.\n", i + 1, avg);
+        avg = 0.0;
     }
     
-    
-    free(list);
+    for(i = 0; i < NUM_TESTS; i++) {
+        free(timeArr[i]);
+    }
+    free(timeArr);
+
     return 0;
 }
 
@@ -73,4 +88,63 @@ void swapTarget(int *list, int size, int indx) {
     temp = list[indx];
     list[indx] = list[random];
     list[random] = temp;
+}
+
+double firstTest(int i) {
+    struct timeval start, end;
+    int target = 5;
+    int index;
+
+    gettimeofday(&start, NULL);
+    int size = genRandomIntByRange(1, 250 * 150);
+    int* list = generateList(size);
+    shuffleList(list, size);
+    if(i == 0) {
+        index = search(target, list, size, 4, 0);
+    }
+    else {
+        index = search(target, list, size, 4, 1);
+    }
+
+    if(index == -1) {
+        printf("Target (%d) was not found.\n", target);
+    }
+    else {
+        printf("Target (%d) has been found at index %d.\n", target, index);
+    }
+    gettimeofday(&end, NULL);
+
+    return elapsedTimeInMilli(&start, &end);
+}
+
+double secondTest() {
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+    gettimeofday(&end, NULL);
+    return elapsedTimeInMilli(&start, &end);
+}
+
+double thirdTest() {
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+    gettimeofday(&end, NULL);
+    return elapsedTimeInMilli(&start, &end);
+}
+
+double elapsedTimeInMilli(struct timeval* start, struct timeval* end) {
+    long secs, usecs;
+    double meantime;
+
+    secs = end -> tv_sec - start -> tv_sec;
+    usecs = end -> tv_usec - start -> tv_usec;
+
+    meantime = ((double)secs * 1000.0 + (double)usecs/1000.0);
+
+    return meantime;
+}
+
+int genRandomIntByRange(int lower, int upper) {
+    int randNum = rand() % (upper - lower + 1) + lower;
+    
+    return randNum;
 }
