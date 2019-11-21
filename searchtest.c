@@ -7,7 +7,7 @@
 
 double firstTest(int); // varies array length
 double secondTest(int); // varies target
-double thirdTest(); // varies subarray size
+double thirdTest(int); // varies subarray size
 int genRandomIntByRange(int upper, int lower);
 double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
 // implements both process and thread techniques
@@ -26,7 +26,7 @@ int main() {
     for(i = 0; i < 100; i++) {
         timeArr[0][i] = firstTest(i);
         timeArr[1][i] = secondTest(i);
-        timeArr[2][i] = thirdTest();
+        timeArr[2][i] = thirdTest(i);
     }
 
     // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
@@ -154,7 +154,7 @@ double secondTest(int i) {
     return elapsedTimeInMilli(&start, &end);
 }
 
-double thirdTest() {
+double thirdTest(int i) {
     struct timeval start, end;
     int target;
     int index;
@@ -163,6 +163,23 @@ double thirdTest() {
     int* list;
 
     gettimeofday(&start, NULL);
+    size = 37500;
+    target = 5;
+    subArraySize = genRandomIntByRange(1, 4);
+    list = generateList(size);
+    shuffleList(list, size);
+    if(i == 0) {
+        index = search(target, list, size, subArraySize, 0);
+    }
+    else {
+        index = search(target, list, size, subArraySize, 1);
+    }
+    if(index == -1) {
+        printf("Target (%d) was not found.\n", target);
+    }
+    else {
+        printf("Target (%d) has been found at index %d.\n", target, index);
+    }
     gettimeofday(&end, NULL);
 
     return elapsedTimeInMilli(&start, &end);
