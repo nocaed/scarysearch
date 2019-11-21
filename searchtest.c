@@ -5,20 +5,21 @@
 #include <math.h>
 // implements both process and thread techniques
 int main() {
-    srand(time(NULL));
+    srand(time(0));
     int* list;
-    int size = 1;
+    int size = 100;
     list = generateList(size);
-    
+    int target = 50;
+    shuffleList(list, size);
     int i;
     for(i = 0; i < size; i++) {
-        if(list[i] == 1) {
+        if(list[i] == target) {
             printf("the target is at %d!\n", i);
         }
     }
-    int indx = test(1, list, size, 1);
+    int indx = test(target, list, size, 5);
 //    printList(list, size);
-    swapTarget(list, size, indx);
+    //swapTarget(list, size, indx);
 //    printList(list, size);
     free(list);
     return 0;

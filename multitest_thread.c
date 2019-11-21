@@ -16,7 +16,6 @@ void genParams(SearchParams*, int, int);
 
 // this file is for multithread
 int startSearch(int target, int* list, int size, int subArraySize) {
-    printf("yeet");
     pthread_t tid; // current thread
     pthread_t* threadArr; // array of all threads
     int i; // for loop control
@@ -25,8 +24,6 @@ int startSearch(int target, int* list, int size, int subArraySize) {
     void* status; // status of current thread
     int* startIndices; // all start indices in list for threads
     int* endIndices; // all end indices in list for threads
-    SearchParams** paramList = (SearchParams**)malloc(sizeof(SearchParams) * threadNum); // search parameters that declare a sublist
-    printf("CHECKPOINT 1");
     // error messages
     if(subArraySize > size) {
         // if subarray size is larger than the size of the list
@@ -44,21 +41,18 @@ int startSearch(int target, int* list, int size, int subArraySize) {
     if(size % subArraySize != 0) {
         threadNum++;
     }
-    printf("CHECKPOINT 2");
+    SearchParams** paramList = (SearchParams**)malloc(sizeof(SearchParams) * threadNum); // search parameters that declare a sublist
     // Allocate memory for arrays
-    threadArr = (pthread_t*)calloc(threadNum, sizeof(pthread_t));
-    startIndices = (int*)calloc(threadNum, sizeof(int));
-    endIndices = (int*)calloc(threadNum, sizeof(int));
-    printf("fuck this shit");
+    threadArr = (pthread_t*)malloc(threadNum * sizeof(pthread_t));
+    startIndices = (int*)malloc(threadNum * sizeof(int));
+    endIndices = (int*)malloc(threadNum * sizeof(int));
     // set all indices for searching
     setIndices(startIndices, endIndices, threadNum, subArraySize, size);
-    printf("CHECKPOINT 3");
     // create threads
     for(i = 0; i < threadNum; i++) {
                 // Correctly generate the parameters :D
         paramList[i] = (SearchParams*) malloc(sizeof(SearchParams)); // allocate space for the struct
-        printf("CHECKPOINT 4");
-        SearchParams* currentParams = paramList[i]; // a named variable for clarity! :D
+        SearchParams* currentParams = paramList[i];
         currentParams->target = target;
         currentParams->list = list;
         currentParams->start = startIndices[i];
