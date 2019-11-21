@@ -54,7 +54,6 @@ int startSearch(int target, int* list, int size, int subArraySize, int timesRan)
         }
 //        printf("status: %d\n", WEXITSTATUS(status));
     }
-    printf("Target found at index: %d\n", targetIndx);
     free(startIndices);
     free(endIndices);
     free(pidList);
@@ -69,7 +68,6 @@ int search(int target, int* list, int start, int end) {
     int i;
     for(i = start; i <= end; i++) {
         if(list[i] == target) {
-            printf("found\n");
             return i - start;
         }
     }
