@@ -1,26 +1,33 @@
 #include "multitest.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <sys/time.h>
 #include <time.h>
 #include <math.h>
 // implements both process and thread techniques
 int main() {
+    // Set up
     srand(time(0));
     int* list;
-    int size = 100;
-    list = generateList(size);
-    int target = 50;
-    shuffleList(list, size);
+    int size = 50;
+    int target = 5;
     int i;
-    for(i = 0; i < size; i++) {
-        if(list[i] == target) {
-            printf("the target is at %d!\n", i);
+    list = generateList(size);
+    shuffleList(list, size);
+    double sum_of_times = 0;
+    // Testing
+    for(i = 0; i < 100; i++) {
+        int indx;
+        
+        if(i == 0) {
+            indx = search(target, list, size, 4, 0);
+        } else {
+            indx = search(target, list, size, 4, 1);
         }
+        swapTarget(list, size, indx);
     }
-    int indx = test(target, list, size, 5);
-//    printList(list, size);
-    //swapTarget(list, size, indx);
-//    printList(list, size);
+    
+    
     free(list);
     return 0;
 }
@@ -66,10 +73,4 @@ void swapTarget(int *list, int size, int indx) {
     temp = list[indx];
     list[indx] = list[random];
     list[random] = temp;
-}
-
-int runTest(int target, int *list, int size, int subArraySize) {
-    int index = test(target, list, size, subArraySize);
-    swapTarget(list, size, index);
-    
 }

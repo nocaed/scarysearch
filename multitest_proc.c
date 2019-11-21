@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>   
-int startSearch(int target, int* list, int size, int subArraySize) {
+int startSearch(int target, int* list, int size, int subArraySize, int timesRan) {
+    if(timesRan == 0) {
+        printf("-process\n");
+    }
     // Error messages
     if(subArraySize > size) {
         printf("Error, subarray size cannot be bigger than total size");

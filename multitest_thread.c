@@ -15,7 +15,11 @@ void setIndices(int*, int*, int, int, int);
 void genParams(SearchParams*, int, int);
 
 // this file is for multithread
-int startSearch(int target, int* list, int size, int subArraySize) {
+int startSearch(int target, int* list, int size, int subArraySize, int timesRan) {
+    if(timesRan == 0) {
+        printf("-thread\n");
+    }
+
     pthread_t tid; // current thread
     pthread_t* threadArr; // array of all threads
     int i; // for loop control
@@ -71,11 +75,15 @@ int startSearch(int target, int* list, int size, int subArraySize) {
         {
             tIndex = temp;
         }
+        free(status);
     }
     
 
     printf("Target found at index %d\n", tIndex);
-    //free(params); TODO free paramList
+    for(i = 0; i < threadNum; i++) {
+        free(paramList[i]);
+    }
+    free(paramList);
     free(threadArr);
     free(startIndices);
     free(endIndices);
@@ -97,7 +105,6 @@ void* search(void* params) {
 
     for(i = seqSearchParams -> start; i <= seqSearchParams -> end; i++)
     {
-        printf("Index: %d\n", i);
         if(searchList[i] == seqSearchParams -> target)
         {
             printf("found\n");
