@@ -6,7 +6,7 @@
 #include <math.h>
 
 double firstTest(int); // varies array length
-double secondTest(); // varies target
+double secondTest(int); // varies target
 double thirdTest(); // varies subarray size
 int genRandomIntByRange(int upper, int lower);
 double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
@@ -92,18 +92,23 @@ void swapTarget(int *list, int size, int indx) {
 
 double firstTest(int i) {
     struct timeval start, end;
-    int target = 5;
+    int target;
     int index;
+    int subArraySize;
+    int size;
+    int* list;
 
     gettimeofday(&start, NULL);
-    int size = genRandomIntByRange(1, 250 * 150);
-    int* list = generateList(size);
+    target = 5;
+    subArraySize = 4;
+    size = genRandomIntByRange(1, 250 * 150);
+    list = generateList(size);
     shuffleList(list, size);
     if(i == 0) {
-        index = search(target, list, size, 4, 0);
+        index = search(target, list, size, subArraySize, 0);
     }
     else {
-        index = search(target, list, size, 4, 1);
+        index = search(target, list, size, subArraySize, 1);
     }
 
     if(index == -1) {
@@ -117,17 +122,49 @@ double firstTest(int i) {
     return elapsedTimeInMilli(&start, &end);
 }
 
-double secondTest() {
+double secondTest(int i) {
     struct timeval start, end;
+    int size;
+    int subArraySize;
+    int target;
+    int* list;
+    int index;
+
     gettimeofday(&start, NULL);
+    subArraySize = 4;
+    size = 37500;
+    target = genRandomIntByRange(1, size);
+    list = generateList(size);
+    shuffleList(list, size);
+    if(i == 0) {
+        index = search(target, list, size, subArraySize, 0);
+    }
+    else {
+        index = search(target, list, size, subArraySize, 1);
+    }
+    if(index == -1) {
+        printf("Target (%d) was not found.\n", target);
+    }
+    else {
+        printf("Target (%d) has been found at index %d.\n", target, index);
+    }
+
     gettimeofday(&end, NULL);
+
     return elapsedTimeInMilli(&start, &end);
 }
 
 double thirdTest() {
     struct timeval start, end;
+    int target;
+    int index;
+    int subArraySize;
+    int size;
+    int* list;
+
     gettimeofday(&start, NULL);
     gettimeofday(&end, NULL);
+    
     return elapsedTimeInMilli(&start, &end);
 }
 
