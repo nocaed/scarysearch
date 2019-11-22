@@ -5,12 +5,12 @@ multitest_proc:
 	gcc -c multitest_proc.c
 
 multitest_thread:
-	gcc -c- multitest_thread.c
+	gcc -c -g multitest_thread.c
 
 proc: multitest_proc.o searchtest.c
-	gcc -Wall -o searchtest searchtest.c multitest_proc.o -lm
+	gcc -g -lm -o searchtest searchtest.c multitest_proc.o
 
 thread: multitest_thread.o searchtest.c
-	gcc -pthread -o searchtest searchtest.c multitest_thread.o -lm
+	gcc -pthread -g -lm -o searchtest searchtest.c multitest_thread.o
 clean:
 	rm -f *.o

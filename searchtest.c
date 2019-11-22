@@ -49,19 +49,34 @@ int main() {
     double avg = 0.0;
     // Testing
     for(i = 0; i < ITERATIONS; i++) {
-        timeArr[0][i] = firstTest(i);
+        timeArr[0][i] = test(2000, 250);
         printf("%f ", timeArr[0][i]);
     }
     printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
-        timeArr[1][i] = secondTest();
+        timeArr[1][i] = test(20000, 250);
         printf("%f ", timeArr[0][i]);
     }
     printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
-        timeArr[2][i] = thirdTest();
+        timeArr[2][i] = test(250, 250);
         printf("%f ", timeArr[0][i]);
     }
+    printf("\n");
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[3][i] = test(250, 250);
+        printf("%f ", timeArr[0][i]);
+    }
+    printf("\n");
+        for(i = 0; i < ITERATIONS; i++) {
+        timeArr[4][i] = test(250, 1);
+        printf("%f ", timeArr[0][i]);
+    }
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[5][i] = test(2000, 15);
+        printf("%f ", timeArr[0][i]);
+    }
+    printf("\n");
     printf("\n");
     // calculate statistics
     for(i = 0; i < NUM_TESTS; i++) {
