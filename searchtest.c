@@ -39,6 +39,8 @@ int main() {
     int i;
     int j;
     double standardDeviation = 0.0;
+    double max;
+    double min;
     for(i = 0; i < NUM_TESTS; i++) {
         timeArr[i] = (double*)calloc(ITERATIONS, sizeof(double));
     }
@@ -53,8 +55,22 @@ int main() {
     // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
     for(i = 0; i < NUM_TESTS; i++) {
         for(j = 0; j < ITERATIONS; j++) {
+            if(i == 0) {
+                min = timeArr[i][j];
+                max = timeArr[i][j];
+            }
+            else {
+                if(timeArr[i][j] > max) {
+                    max = timeArr[i][j];
+                }
+                if(timeArr[i][j] < min) {
+                    min = timeArr[i][j];
+                }
+            }
             avg += timeArr[i][j];
         }
+        printf("The minimum runtime for test case %d was %f ms.\n", i+1, min);
+        printf("The maximum runtime for test case %d was %f ms.\n", i+1, max);
         avg /= ITERATIONS;
         printf("The average runtime for test case %d was %f ms.\n", i+1, avg);
         for(j = 0; j < ITERATIONS; j++) {
