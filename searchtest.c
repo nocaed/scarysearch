@@ -48,11 +48,20 @@ int main() {
     // Testing
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[0][i] = firstTest(i);
-        timeArr[1][i] = secondTest(i);
-        timeArr[2][i] = thirdTest(i);
+        printf("%f ", timeArr[0][i]);
     }
-
-    // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
+    printf("\n");
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[1][i] = secondTest();
+        printf("%f ", timeArr[0][i]);
+    }
+    printf("\n");
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[2][i] = thirdTest();
+        printf("%f ", timeArr[0][i]);
+    }
+    printf("\n");
+    // calculate statistics
     for(i = 0; i < NUM_TESTS; i++) {
         for(j = 0; j < ITERATIONS; j++) {
             if(j == 0) {
