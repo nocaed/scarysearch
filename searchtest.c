@@ -68,10 +68,11 @@ int main() {
         printf("%f ", timeArr[3][i]);
     }
     printf("\n");
-        for(i = 0; i < ITERATIONS; i++) {
+    for(i = 0; i < ITERATIONS; i++) {
         timeArr[4][i] = test(250, 1);
         printf("%f ", timeArr[4][i]);
     }
+    printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[5][i] = test(2000, 15);
         printf("%f ", timeArr[5][i]);
