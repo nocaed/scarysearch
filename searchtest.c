@@ -179,7 +179,12 @@ int genRandomIntByRange(int lower, int upper) {
 void printTime(double** timeArr, int testNum, int ITERATIONS) {
     int i, j;
     for(i = 0; i < ITERATIONS; i++) {
-        printf("%f ", timeArr[testNum][i]);
+        if(i == ITERATIONS - 1) {
+            printf("%f", timeArr[testNum][i]);
+        }
+        else {
+            printf("%f, ", timeArr[testNum][i]);
+        }
     }
 }
 
