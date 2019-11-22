@@ -9,6 +9,7 @@ double firstTest(int); // varies array length
 double secondTest(); // varies target
 double thirdTest(); // varies subarray size
 double test(int, int);
+void printTime(double**, int, int);
 int genRandomIntByRange(int upper, int lower);
 double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
 // implements both process and thread techniques
@@ -36,7 +37,7 @@ int main() {
     printType();
     srand(time(0));
     const int NUM_TESTS = 6;
-    const int ITERATIONS = 5;
+    const int ITERATIONS = 100;
     double** timeArr = (double**)calloc(NUM_TESTS, sizeof(double*));
     int i;
     int j;
@@ -50,35 +51,40 @@ int main() {
     // Testing
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[0][i] = test(2000, 250);
-        printf("%f ", timeArr[0][i]);
+        //printf("%f ", timeArr[0][i]);
     }
-    printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[1][i] = test(20000, 250);
-        printf("%f ", timeArr[1][i]);
+    //   printf("%f ", timeArr[1][i]);
     }
-    printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[2][i] = test(250, 250);
-        printf("%f ", timeArr[2][i]);
+    //    printf("%f ", timeArr[2][i]);
     }
-    printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[3][i] = test(250, 250);
-        printf("%f ", timeArr[3][i]);
+    //    printf("%f ", timeArr[3][i]);
     }
-    printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[4][i] = test(250, 1);
-        printf("%f ", timeArr[4][i]);
+    //    printf("%f ", timeArr[4][i]);
     }
-    printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[5][i] = test(2000, 15);
-        printf("%f ", timeArr[5][i]);
+    //    printf("%f ", timeArr[5][i]);
     }
+
+    printTime(timeArr, 0, ITERATIONS);
     printf("\n");
+    printTime(timeArr, 1, ITERATIONS);
     printf("\n");
+    printTime(timeArr, 2, ITERATIONS);
+    printf("\n");
+    printTime(timeArr, 3, ITERATIONS);
+    printf("\n");
+    printTime(timeArr, 4, ITERATIONS);
+    printf("\n");
+    printTime(timeArr, 5, ITERATIONS);
     // calculate statistics
     for(i = 0; i < NUM_TESTS; i++) {
         for(j = 0; j < ITERATIONS; j++) {
@@ -204,7 +210,7 @@ double secondTest() {
 
     gettimeofday(&start, NULL);
     subArraySize = 250;
-    size = 5000;
+    size = 20000;
     target = 5;
     list = generateList(size);
     shuffleList(list, size);
@@ -287,4 +293,11 @@ int genRandomIntByRange(int lower, int upper) {
     int randNum = rand() % (upper - lower + 1) + lower;
     
     return randNum;
+}
+
+void printTime(double** timeArr, int testNum, int ITERATIONS) {
+    int i, j;
+    for(i = 0; i < ITERATIONS; i++) {
+        printf("%f ", timeArr[testNum][i]);
+    }
 }
