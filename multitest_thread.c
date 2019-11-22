@@ -32,7 +32,7 @@ void* search(void* args) {
     pthread_exit(paramStruct);
 } 
   
-int startSearch(int target, int* list, int size, int subArraySize, int timesRan) {
+int startSearch(int target, int* list, int size, int subArraySize) {
     int i;
     int indx = -1;
     int numThreads = size / subArraySize;
@@ -83,3 +83,6 @@ int startSearch(int target, int* list, int size, int subArraySize, int timesRan)
 //     int indx = startSearch(437, list, 2500, 250, 0);
 //     printf("found at %d", indx);
 // }
+void printType() {
+    printf("-thread\n");
+}

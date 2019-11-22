@@ -5,10 +5,7 @@
 
 void setIndices(int*, int*, int, int, int);
 
-int startSearch(int target, int* list, int size, int subArraySize, int timesRan) {
-    if(timesRan == 0) {
-        printf("-process\n");
-    }
+int startSearch(int target, int* list, int size, int subArraySize) {
     // Error messages
     if(subArraySize > size) {
         printf("Error, subarray size cannot be bigger than total size");
@@ -86,4 +83,8 @@ void setIndices(int *startIndices, int* endIndices, int procNum, int subArraySiz
             endIndices[i] = size - 1; // the end index is just the last index of the array
         }
     }
+}
+
+void printType() {
+    printf("-process\n");
 }
