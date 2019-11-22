@@ -1,14 +1,5 @@
-Test 1
-Testing the search with a small array size of 250 numbers and a subarray size of 50
-Test 2
-Testing the search with a small array size of 250 numbers and a subarray size of 250
-Test 3
-Testing the search with a medium array size of 2000 numbers and a subarray size of 50
-Test 4
-Testing the search with a medium array size of 2000 numbers and a subarray size of 250
-Test 5
-Testing the search with a large array size of 20000 numbers and a subarray size of 50
-Test 6
-Testing the search with a large array size of 20000 numbers and a subarray size of 250
+Tests 1-8:
+Vary array size from 250-20000, keep subarray size at 250
 
-All tests are attempting to find the number 5.
+Tests 9-13
+Keep array size at 2000, vary subarray size from 16-250

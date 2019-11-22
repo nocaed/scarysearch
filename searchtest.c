@@ -14,8 +14,8 @@ double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets e
 int main() {
     printType();
     srand(time(0));
-    const int NUM_TESTS = 6;
-    const int ITERATIONS = 100;
+    const int NUM_TESTS = 13;
+    const int ITERATIONS = 50;
     double** timeArr = (double**)calloc(NUM_TESTS, sizeof(double*));
     int i;
     int j;
@@ -26,26 +26,30 @@ int main() {
         timeArr[i] = (double*)calloc(ITERATIONS, sizeof(double));
     }
     double avg = 0.0;
+
     // Testing
-    /**
-     * Test 1: test(small arr size, small subarr)
-     * Test 2: test(small arr size, large subarr)
-     * Test 3: test(med arr size, small subarr)
-     * Test 4: test(med arr size, large subarr)
-     * Test 5: test(large arr size, small subarr)
-     * Test 6: test(large arr size, large subarr)
-    */
     for(i = 0; i < ITERATIONS; i++) {
-        timeArr[0][i] = test(250, 50);
-        timeArr[1][i] = test(250, 250);
-        timeArr[2][i] = test(2000, 50);
+        // first batch
+        timeArr[0][i] = test(250, 250);
+        timeArr[1][i] = test(500, 250);
+        timeArr[2][i] = test(1000, 250);
         timeArr[3][i] = test(2000, 250);
-        timeArr[4][i] = test(20000, 50);
-        timeArr[5][i] = test(20000, 250);
+        timeArr[4][i] = test(4000, 250);
+        timeArr[5][i] = test(8000, 250);
+        timeArr[6][i] = test(16000, 250);
+        timeArr[7][i] = test(20000, 250);
+        // second batch
+        timeArr[8][i] = test(2000, 16);
+        timeArr[9][i] = test(2000, 32);
+        timeArr[10][i] = test(2000, 64);
+        timeArr[11][i] = test(2000, 128);
+        timeArr[12][i] = test(2000, 250);
     }
-    
+
     for(i = 0; i < NUM_TESTS; i++) {
         printf("Test Case %d:\n", i+1);
+        printf("Test Parameters: ");
+        printTestDetails(i);
         printTime(timeArr, i, ITERATIONS);
         printf("\n");
     }
@@ -177,4 +181,71 @@ void printTime(double** timeArr, int testNum, int ITERATIONS) {
     for(i = 0; i < ITERATIONS; i++) {
         printf("%f ", timeArr[testNum][i]);
     }
+}
+
+void printTestDetails(int testNum) {
+    int arrSize;
+    int subArrSize;
+
+    switch(testNum) {
+        case 0:
+            arrSize = 250;
+            subArrSize = 250;
+            break;
+        case 1:
+            arrSize = 500;
+            subArrSize = 250;
+            break;
+
+        case 2:
+            arrSize = 1000;
+            subArrSize = 250;
+            break;
+        case 3:
+            arrSize = 2000;
+            subArrSize = 250;
+            break;
+        case 4:
+            arrSize = 4000;
+            subArrSize = 250;
+            break;
+        case 5:
+            arrSize = 8000;
+            subArrSize = 250;
+            break;
+        case 6:
+            arrSize = 16000;
+            subArrSize = 250;
+            break;
+        case 7:
+            arrSize = 20000;
+            subArrSize = 250;
+            break;
+        case 8:
+            arrSize = 2000;
+            subArrSize = 16;
+            break;
+        case 9:
+            arrSize = 2000;
+            subArrSize = 32;
+            break;
+        case 10:
+            arrSize = 2000;
+            subArrSize = 64;
+            break;
+        case 11:
+            arrSize = 2000;
+            subArrSize = 128;
+            break;
+        case 12:
+            arrSize = 2000;
+            subArrSize = 250;
+            break;
+        default:
+            arrSize = -1;
+            subArrSize = -1;
+            break;
+    }
+
+    printf("Searches an array of size %d for the number 5, with %d subarrays.\n", arrSize, subArrSize);
 }
