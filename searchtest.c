@@ -5,35 +5,13 @@
 #include <time.h>
 #include <math.h>
 
-double firstTest(int); // varies array length
-double secondTest(); // varies target
-double thirdTest(); // varies subarray size
 double test(int, int);
 void printTime(double**, int, int);
+void printTestDetails(int);
 int genRandomIntByRange(int upper, int lower);
 double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
-// implements both process and thread techniques
-int sequentialSearch(int* list, int size, int target) {
-    int i;
-    for(i = 0; i < size; i++) {
-        if(list[i] == target) {
-            return i;
-        }
-    }
-    return -1;
-}
+
 int main() {
-    // srand(time(0));
-    // int size = 20;
-    // int subArraySize = 5;
-    // int target = 5;
-    // int* list = generateList(size);
-    // shuffleList(list, size);
-    // int actualLocation = sequentialSearch(list, size, target);
-    // printf("Actual loc: %d\n", actualLocation);
-    // int indx = search(5, list, size, subArraySize, 0);
-    // printf("We found it at %d with threads\n", indx);
-    // Set up
     printType();
     srand(time(0));
     const int NUM_TESTS = 6;
@@ -49,42 +27,28 @@ int main() {
     }
     double avg = 0.0;
     // Testing
+    /**
+     * Test 1: test(small arr size, small subarr)
+     * Test 2: test(small arr size, large subarr)
+     * Test 3: test(med arr size, small subarr)
+     * Test 4: test(med arr size, large subarr)
+     * Test 5: test(large arr size, small subarr)
+     * Test 6: test(large arr size, large subarr)
+    */
     for(i = 0; i < ITERATIONS; i++) {
-        timeArr[0][i] = test(2000, 250);
-        //printf("%f ", timeArr[0][i]);
+        timeArr[0][i] = test(250, 50);
+        timeArr[1][i] = test(250, 250);
+        timeArr[2][i] = test(2000, 50);
+        timeArr[3][i] = test(2000, 250);
+        timeArr[4][i] = test(20000, 50);
+        timeArr[5][i] = test(20000, 250);
     }
-    for(i = 0; i < ITERATIONS; i++) {
-        timeArr[1][i] = test(20000, 250);
-    //   printf("%f ", timeArr[1][i]);
+    
+    for(i = 0; i < NUM_TESTS; i++) {
+        printf("Test Case %d:\n", i+1);
+        printTime(timeArr, i, ITERATIONS);
+        printf("\n");
     }
-    for(i = 0; i < ITERATIONS; i++) {
-        timeArr[2][i] = test(250, 250);
-    //    printf("%f ", timeArr[2][i]);
-    }
-    for(i = 0; i < ITERATIONS; i++) {
-        timeArr[3][i] = test(250, 250);
-    //    printf("%f ", timeArr[3][i]);
-    }
-    for(i = 0; i < ITERATIONS; i++) {
-        timeArr[4][i] = test(250, 1);
-    //    printf("%f ", timeArr[4][i]);
-    }
-    for(i = 0; i < ITERATIONS; i++) {
-        timeArr[5][i] = test(2000, 15);
-    //    printf("%f ", timeArr[5][i]);
-    }
-
-    printTime(timeArr, 0, ITERATIONS);
-    printf("\n");
-    printTime(timeArr, 1, ITERATIONS);
-    printf("\n");
-    printTime(timeArr, 2, ITERATIONS);
-    printf("\n");
-    printTime(timeArr, 3, ITERATIONS);
-    printf("\n");
-    printTime(timeArr, 4, ITERATIONS);
-    printf("\n");
-    printTime(timeArr, 5, ITERATIONS);
     // calculate statistics
     for(i = 0; i < NUM_TESTS; i++) {
         for(j = 0; j < ITERATIONS; j++) {
@@ -165,93 +129,6 @@ void swapTarget(int *list, int size, int indx) {
     temp = list[indx];
     list[indx] = list[random];
     list[random] = temp;
-}
-
-double firstTest(int i) {
-    struct timeval start, end;
-    int target;
-    int index;
-    int subArraySize;
-    int size;
-    int* list;
-
-    gettimeofday(&start, NULL);
-    target = 5;
-    subArraySize = 250;
-    size = 2500;
-    list = generateList(size);
-    shuffleList(list, size);
-    if(i == 0) {
-        index = search(target, list, size, subArraySize);
-    }
-    else {
-        index = search(target, list, size, subArraySize);
-    }
-
-    if(index == -1) {
-        printf("Target (%d) was not found.\n", target);
-    }
-    else {
-    //    printf("Target (%d) has been found at index %d.\n", target, index);
-    }
-    free(list);
-    gettimeofday(&end, NULL);
-
-    return elapsedTimeInMilli(&start, &end);
-}
-
-double secondTest() {
-    struct timeval start, end;
-    int size;
-    int subArraySize;
-    int target;
-    int* list;
-    int index;
-
-    gettimeofday(&start, NULL);
-    subArraySize = 250;
-    size = 20000;
-    target = 5;
-    list = generateList(size);
-    shuffleList(list, size);
-    index = search(target, list, size, subArraySize);
-    if(index == -1) {
-        printf("Target (%d) was not found.\n", target);
-    }
-    else {
-    //    printf("Target (%d) has been found at index %d.\n", target, index);
-    }
-    free(list);
-    gettimeofday(&end, NULL);
-
-    return elapsedTimeInMilli(&start, &end);
-}
-
-double thirdTest() {
-    struct timeval start, end;
-    int target;
-    int index;
-    int subArraySize;
-    int size;
-    int* list;
-
-    gettimeofday(&start, NULL);
-    size = 37500;
-    target = 5;
-    subArraySize = 250;
-    list = generateList(size);
-    shuffleList(list, size);
-    index = search(target, list, size, subArraySize);
-    if(index == -1) {
-        printf("Target (%d) was not found.\n", target);
-    }
-    else {
-    //    printf("Target (%d) has been found at index %d.\n", target, index);
-    }
-    free(list);
-    gettimeofday(&end, NULL);
-
-    return elapsedTimeInMilli(&start, &end);
 }
 
 double test(int arraySize, int subArraySize) {
