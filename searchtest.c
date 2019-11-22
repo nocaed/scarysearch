@@ -36,7 +36,7 @@ int main() {
     printType();
     srand(time(0));
     const int NUM_TESTS = 6;
-    const int ITERATIONS = 100;
+    const int ITERATIONS = 5;
     double** timeArr = (double**)calloc(NUM_TESTS, sizeof(double*));
     int i;
     int j;
@@ -55,26 +55,26 @@ int main() {
     printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[1][i] = test(20000, 250);
-        printf("%f ", timeArr[0][i]);
+        printf("%f ", timeArr[1][i]);
     }
     printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[2][i] = test(250, 250);
-        printf("%f ", timeArr[0][i]);
+        printf("%f ", timeArr[2][i]);
     }
     printf("\n");
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[3][i] = test(250, 250);
-        printf("%f ", timeArr[0][i]);
+        printf("%f ", timeArr[3][i]);
     }
     printf("\n");
         for(i = 0; i < ITERATIONS; i++) {
         timeArr[4][i] = test(250, 1);
-        printf("%f ", timeArr[0][i]);
+        printf("%f ", timeArr[4][i]);
     }
     for(i = 0; i < ITERATIONS; i++) {
         timeArr[5][i] = test(2000, 15);
-        printf("%f ", timeArr[0][i]);
+        printf("%f ", timeArr[5][i]);
     }
     printf("\n");
     printf("\n");
