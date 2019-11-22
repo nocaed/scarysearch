@@ -6,8 +6,8 @@
 #include <math.h>
 
 double firstTest(int); // varies array length
-double secondTest(int); // varies target
-double thirdTest(int); // varies subarray size
+double secondTest(); // varies target
+double thirdTest(); // varies subarray size
 int genRandomIntByRange(int upper, int lower);
 double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
 // implements both process and thread techniques
@@ -15,10 +15,11 @@ int main() {
     // Set up
     srand(time(0));
     const int NUM_TESTS = 3;
-    const int ITERATIONS = 100;
+    const int ITERATIONS = 20;
     double** timeArr = (double**)calloc(NUM_TESTS, sizeof(double*));
     int i;
     int j;
+    double standardDeviation = 0.0;
     for(i = 0; i < NUM_TESTS; i++) {
         timeArr[i] = (double*)calloc(ITERATIONS, sizeof(double));
     }
@@ -32,12 +33,19 @@ int main() {
 
     // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
     for(i = 0; i < NUM_TESTS; i++) {
-        for(j = 0; j < 100; j++) {
+        for(j = 0; j < ITERATIONS; j++) {
             avg += timeArr[i][j];
         }
-        avg /= 100;
-        printf("The average runtime for test case %d was %f ms.\n", i + 1, avg);
+        avg /= ITERATIONS;
+        printf("The average runtime for test case %d was %f ms.\n", i+1, avg);
+        for(j = 0; j < ITERATIONS; j++) {
+            standardDeviation += pow(timeArr[i][j] - avg, 2.0);
+        }
+        standardDeviation /= ITERATIONS;
+        standardDeviation = sqrt(standardDeviation);
+        printf("The standard deviation for test case %d was %f ms.\n", i+1, standardDeviation);
         avg = 0.0;
+        standardDeviation = 0.0;
     }
     
     for(i = 0; i < NUM_TESTS; i++) {
@@ -102,7 +110,7 @@ double firstTest(int i) {
     gettimeofday(&start, NULL);
     target = 5;
     subArraySize = 4;
-    size = genRandomIntByRange(1, 20000);
+    size = genRandomIntByRange(1, 2000);
     list = generateList(size);
     shuffleList(list, size);
     if(i == 0) {
@@ -124,7 +132,7 @@ double firstTest(int i) {
     return elapsedTimeInMilli(&start, &end);
 }
 
-double secondTest(int i) {
+double secondTest() {
     struct timeval start, end;
     int size;
     int subArraySize;
@@ -138,12 +146,7 @@ double secondTest(int i) {
     target = genRandomIntByRange(1, size);
     list = generateList(size);
     shuffleList(list, size);
-    if(i == 0) {
-        index = search(target, list, size, subArraySize, 0);
-    }
-    else {
-        index = search(target, list, size, subArraySize, 1);
-    }
+    index = search(target, list, size, subArraySize, 1);
     if(index == -1) {
         printf("Target (%d) was not found.\n", target);
     }
@@ -156,7 +159,7 @@ double secondTest(int i) {
     return elapsedTimeInMilli(&start, &end);
 }
 
-double thirdTest(int i) {
+double thirdTest() {
     struct timeval start, end;
     int target;
     int index;
@@ -170,12 +173,7 @@ double thirdTest(int i) {
     subArraySize = genRandomIntByRange(1, 4);
     list = generateList(size);
     shuffleList(list, size);
-    if(i == 0) {
-        index = search(target, list, size, subArraySize, 0);
-    }
-    else {
-        index = search(target, list, size, subArraySize, 1);
-    }
+    index = search(target, list, size, subArraySize, 1);
     if(index == -1) {
         printf("Target (%d) was not found.\n", target);
     }
