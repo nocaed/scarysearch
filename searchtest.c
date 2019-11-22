@@ -41,26 +41,47 @@ int main() {
     int i;
     int j;
     double standardDeviation = 0.0;
+    double max;
+    double min;
     for(i = 0; i < NUM_TESTS; i++) {
         timeArr[i] = (double*)calloc(ITERATIONS, sizeof(double));
     }
     double avg = 0.0;
     // Testing
     for(i = 0; i < ITERATIONS; i++) {
-        printf("Iteration: %d\n", i);
-        timeArr[0][i] = test(2000, 250);
-        timeArr[1][i] = test(5000, 250);
-        timeArr[2][i] = test(20000, 250);
-        timeArr[3][i] = test(250, 250);
-        timeArr[4][i] = test(250, 1);
-        timeArr[5][i] = test(2000, 15);
+        timeArr[0][i] = firstTest(i);
+        printf("%f ", timeArr[0][i]);
     }
-
-    // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
+    printf("\n");
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[1][i] = secondTest();
+        printf("%f ", timeArr[0][i]);
+    }
+    printf("\n");
+    for(i = 0; i < ITERATIONS; i++) {
+        timeArr[2][i] = thirdTest();
+        printf("%f ", timeArr[0][i]);
+    }
+    printf("\n");
+    // calculate statistics
     for(i = 0; i < NUM_TESTS; i++) {
         for(j = 0; j < ITERATIONS; j++) {
+            if(j == 0) {
+                min = timeArr[i][j];
+                max = timeArr[i][j];
+            }
+            else {
+                if(timeArr[i][j] > max) {
+                    max = timeArr[i][j];
+                }
+                if(timeArr[i][j] < min) {
+                    min = timeArr[i][j];
+                }
+            }
             avg += timeArr[i][j];
         }
+        printf("The minimum runtime for test case %d was %f ms.\n", i+1, min);
+        printf("The maximum runtime for test case %d was %f ms.\n", i+1, max);
         avg /= ITERATIONS;
         printf("The average runtime for test case %d was %f ms.\n", i+1, avg);
         for(j = 0; j < ITERATIONS; j++) {

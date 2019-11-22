@@ -5,7 +5,7 @@ multitest_proc:
 	gcc -c multitest_proc.c
 
 multitest_thread:
-	gcc -c- mythread.c
+	gcc -c- multitest_thread.c
 
 proc: multitest_proc.o searchtest.c
 	gcc -Wall -o searchtest searchtest.c multitest_proc.o -lm
