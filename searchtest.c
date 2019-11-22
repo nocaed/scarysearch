@@ -11,7 +11,26 @@ double thirdTest(); // varies subarray size
 int genRandomIntByRange(int upper, int lower);
 double elapsedTimeInMilli(struct timeval* start, struct timeval* end); // gets elapsed time in milliseconds
 // implements both process and thread techniques
+int sequentialSearch(int* list, int size, int target) {
+    int i;
+    for(i = 0; i < size; i++) {
+        if(list[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}
 int main() {
+    // srand(time(0));
+    // int size = 20;
+    // int subArraySize = 5;
+    // int target = 5;
+    // int* list = generateList(size);
+    // shuffleList(list, size);
+    // int actualLocation = sequentialSearch(list, size, target);
+    // printf("Actual loc: %d\n", actualLocation);
+    // int indx = search(5, list, size, subArraySize, 0);
+    // printf("We found it at %d with threads\n", indx);
     // Set up
     srand(time(0));
     const int NUM_TESTS = 3;
@@ -109,8 +128,8 @@ double firstTest(int i) {
 
     gettimeofday(&start, NULL);
     target = 5;
-    subArraySize = 4;
-    size = genRandomIntByRange(1, 2000);
+    subArraySize = 250;
+    size = 2500;
     list = generateList(size);
     shuffleList(list, size);
     if(i == 0) {
@@ -124,7 +143,7 @@ double firstTest(int i) {
         printf("Target (%d) was not found.\n", target);
     }
     else {
-        printf("Target (%d) has been found at index %d.\n", target, index);
+    //    printf("Target (%d) has been found at index %d.\n", target, index);
     }
     free(list);
     gettimeofday(&end, NULL);
@@ -141,9 +160,9 @@ double secondTest() {
     int index;
 
     gettimeofday(&start, NULL);
-    subArraySize = 4;
-    size = 2000;
-    target = genRandomIntByRange(1, size);
+    subArraySize = 250;
+    size = 5000;
+    target = 5;
     list = generateList(size);
     shuffleList(list, size);
     index = search(target, list, size, subArraySize, 1);
@@ -151,7 +170,7 @@ double secondTest() {
         printf("Target (%d) was not found.\n", target);
     }
     else {
-        printf("Target (%d) has been found at index %d.\n", target, index);
+    //    printf("Target (%d) has been found at index %d.\n", target, index);
     }
     free(list);
     gettimeofday(&end, NULL);
@@ -168,9 +187,9 @@ double thirdTest() {
     int* list;
 
     gettimeofday(&start, NULL);
-    size = 2000;
+    size = 10000;
     target = 5;
-    subArraySize = genRandomIntByRange(1, 4);
+    subArraySize = 250;
     list = generateList(size);
     shuffleList(list, size);
     index = search(target, list, size, subArraySize, 1);
@@ -178,7 +197,7 @@ double thirdTest() {
         printf("Target (%d) was not found.\n", target);
     }
     else {
-        printf("Target (%d) has been found at index %d.\n", target, index);
+    //    printf("Target (%d) has been found at index %d.\n", target, index);
     }
     free(list);
     gettimeofday(&end, NULL);
