@@ -55,7 +55,7 @@ int main() {
     // TODO: CALCULATE STANDARD DEVIATION FOR EACH TEST CASE
     for(i = 0; i < NUM_TESTS; i++) {
         for(j = 0; j < ITERATIONS; j++) {
-            if(i == 0) {
+            if(j == 0) {
                 min = timeArr[i][j];
                 max = timeArr[i][j];
             }
