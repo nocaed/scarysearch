@@ -1,5 +1,10 @@
+All of our test cases involve two variables: the length of the array to be searched, and the size of subarrays that processes and threads will search.
 Tests 1-8:
-Vary array size from 250-20000, keep subarray size at 250
+The subarray size is kept at a constant size of 250.
+The array size starts at 250 and is doubled each time until it is the size 20000.
+These test cases serve to demonstrate the effect of array length on the runtimes of processes and threads.
 
 Tests 9-13
-Keep array size at 2000, vary subarray size from 16-250
+The array size is kept at a constant size of 2000.
+The sub array size starts at 16, as not to go above the recommended limit of processes, and is doubled with each test until it reaches 250.
+These test cases serve to demonstrate the effect of subarray length on the runtimes of processes and threads.
